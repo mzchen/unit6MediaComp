@@ -28,6 +28,24 @@ public class Picture extends SimplePicture
         super();  
     }
 
+    public void copy(Picture pic, int startRow, int endRow, int startCol, int endCol)
+    {
+        Pixel fromPixel = null;
+        Pixel toPixel = null;
+        Pixel[][] toPixels = this.getPixels2D();
+        Pixel [][] fromPixels = pic.getPixels2D();
+        for(int fromRow = 0, toRow = startRow; fromRow < endRow && toRow < endRow; fromRow++, toRow++)
+        {
+            for (int fromCol = 0, toCol = startCol; fromCol < endCol && toCol < endCol; fromCol++, toCol++)
+            {
+                fromPixel = fromPixels[fromRow][fromCol];
+                toPixel = toPixels[toRow][toCol];
+                toPixel.setColor(fromPixel.getColor());
+            }
+        }
+
+    }
+
     /**
      * Constructor that takes a file name and creates the picture 
      * @param fileName the name of the file to create the picture from
@@ -97,6 +115,85 @@ public class Picture extends SimplePicture
             }
         }
     }
+    public void zeroGreen()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setGreen(0);
+            }
+        }
+    }
+    public void keepBlue()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(0);
+                pixelObj.setGreen(0);
+            }
+        }
+    }
+
+    public void zeroRed()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(0);
+            }
+        }
+    }
+
+    public void seeFish()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setGreen(0);
+                pixelObj.setRed(pixelObj.getRed()*2);
+            }
+        }
+    }
+
+    public void negate()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setBlue(255-pixelObj.getBlue());
+                pixelObj.setRed(255-pixelObj.getRed());
+                pixelObj.setGreen(255-pixelObj.getGreen());
+
+            }
+        }
+    }
+
+    public void grayScale()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                int avgScale = (pixelObj.getGreen() + pixelObj.getBlue() + pixelObj.getRed())/3;
+                pixelObj.setBlue(avgScale);
+                pixelObj.setGreen(avgScale);
+                pixelObj.setRed(avgScale);
+            }
+        }
+    }
 
     /** Method that mirrors the picture around a 
      * vertical mirror in the center of the picture
@@ -117,7 +214,7 @@ public class Picture extends SimplePicture
             }
         } 
     }
-    
+
     public void mirrorVerticalRightToLeft()
     {
         Pixel[][] pixels = this.getPixels2D();
@@ -134,13 +231,22 @@ public class Picture extends SimplePicture
             }
         } 
     }
-    
+
     public void mirrorDiagonal()
     {
         Pixel[][] pixels = this.getPixels2D();
         Pixel upperDiagonalPixel = null;
         Pixel lowerDiagonalPixel = null;
-        int width = pixels[0].length;
+        int chicken = 0;
+        if(pixels.length>pixels[0].length)
+        {
+            chicken = pixels.length;
+        }
+        else
+        {
+            chicken = pixels[0].length;
+        }
+
         for (int row = 0; row < pixels.length; row++)
         {
             for(int col = 0; col < pixels.length; col++)
@@ -151,7 +257,33 @@ public class Picture extends SimplePicture
             }
         }
     }
-    
+
+    public void mirrorDiagonalBotToTop()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel upperDiagonalPixel = null;
+        Pixel lowerDiagonalPixel = null;
+        int chicken = 0;
+        if(pixels.length>pixels[0].length)
+        {
+            chicken = pixels.length;
+        }
+        else
+        {
+            chicken = pixels[0].length;
+        }
+
+        for (int row = pixels.length-1; row >=0; row--)
+        {
+            for(int col = 0; col < pixels.length; col++)
+            {
+                upperDiagonalPixel = pixels[row][col];
+                lowerDiagonalPixel = pixels[col][row];
+                lowerDiagonalPixel.setColor(upperDiagonalPixel.getColor());
+            }
+        }
+    }    
+
     public void mirrorHorizontal()
     {
         Pixel[][] pixels = this.getPixels2D();
@@ -168,7 +300,59 @@ public class Picture extends SimplePicture
             }
         } 
     }
-    
+
+    public void mirrorSnowman()
+    {
+        int mirrorPoint = 191;
+        int mirrorPoint2 = 197;
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+        int count = 0;
+        Pixel[][] pixels = this.getPixels2D();
+        // loop through the rows
+        for (int row = 159; row < mirrorPoint; row++)
+        {
+            for (int col = 105; col < 171; col++)
+            {
+                topPixel = pixels[row][col];  
+
+                bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+        for (int row = 172; row < mirrorPoint; row++)
+        {
+            for (int col = 239; col < 295; col++)
+            {
+                topPixel = pixels[row][col];  
+
+                bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    }
+
+    public void mirrorCheadle()
+    {
+        int mirrorPoint = 191;
+        int mirrorPoint2 = 197;
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+        int count = 0;
+        Pixel[][] pixels = this.getPixels2D();
+        // loop through the rows
+        for (int row = 159; row < mirrorPoint; row++)
+        {
+            for (int col = 105; col < 171; col++)
+            {
+                topPixel = pixels[row][col];  
+
+                bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    }
+
     public void mirrorHorizontalBotToTop()
     {
         Pixel[][] pixels = this.getPixels2D();
@@ -185,6 +369,7 @@ public class Picture extends SimplePicture
             }
         } 
     }
+
     /** Mirror just part of a picture of a temple */
     public void mirrorTemple()
     {
@@ -208,7 +393,28 @@ public class Picture extends SimplePicture
             }
         }
     }
+    public void mirrorTemple2()
+    {
+        int mirrorPoint = 181;
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int count = 0;
+        Pixel[][] pixels = this.getPixels2D();
 
+        // loop through the rows
+        for (int row = 240; row > 91; row--)
+        {
+            // loop from 13 to just before the mirror point
+            for (int col = 303; col > mirrorPoint; col--)
+            {
+
+                leftPixel = pixels[row][col];      
+                rightPixel = pixels[row]                       
+                [mirrorPoint - col + mirrorPoint];
+                rightPixel.setColor(leftPixel.getColor());
+            }
+        }
+    }
     /** copy from the passed fromPic to the
      * specified startRow and startCol in the
      * current picture
@@ -288,7 +494,7 @@ public class Picture extends SimplePicture
      */
     public static void main(String[] args) 
     {
-        Picture beach = new Picture("beach.jpg");
+        Picture beach = new Picture("doncheadle.jpg");
         beach.explore();
         beach.zeroBlue();
         beach.explore();

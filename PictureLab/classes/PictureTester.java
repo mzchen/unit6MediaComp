@@ -9,6 +9,39 @@
 public class PictureTester
 {
     /** Method to test zeroBlue */
+    public static void myCollage()
+    {
+        Picture main = new Picture("MyCollage.jpg");
+        Picture cheadle = new Picture("shrek.jpg");
+        Picture cheadle2 = new Picture("shrek.jpg");
+        Picture cheadle3 = new Picture("shrek.jpg");
+        Picture cheadle4 = new Picture("shrek.jpg");
+        Picture cheadle5 = new Picture("shrek.jpg");
+        Picture cheadle6 = new Picture("shrek.jpg");
+        cheadle.zeroRed();
+        cheadle.mirrorHorizontal();
+        cheadle.mirrorDiagonalBotToTop();
+        cheadle.zeroBlue();
+        cheadle.mirrorHorizontalBotToTop();
+        cheadle.mirrorTemple2();
+        cheadle.mirrorVertical();
+        cheadle.explore();
+        cheadle2.seeFish();
+        cheadle2.mirrorDiagonal();
+        cheadle2.mirrorHorizontal();
+        cheadle2.explore();
+        cheadle3.mirrorDiagonal();
+        //cheadle3.mirrorDiagonalBotToTop();
+        cheadle3.explore();
+        cheadle4.zeroGreen();
+        cheadle4.mirrorSnowman();
+        cheadle4.explore();
+        main.copy(cheadle,0,0);
+        main.copy(cheadle2,0,1000);
+        main.copy(cheadle3,562,0);
+        main.copy(cheadle4, 562, 1000);
+        main.explore();
+    }
     public static void testZeroBlue()
     {
         Picture beach = new Picture("beach.jpg");
@@ -16,7 +49,43 @@ public class PictureTester
         beach.zeroBlue();
         beach.explore();
     }
-
+    public static void testSeeFish()
+    {
+        Picture fish = new Picture("water.jpg");
+        fish.explore();
+        fish.seeFish();
+        fish.explore();
+    }
+    
+    public static void testkeepBlue()
+    {
+        Picture beach = new Picture("beach.jpg");
+        beach.explore();
+        beach.keepBlue();
+        beach.explore();
+    }
+    public static void testnegate()
+    {
+        Picture beach = new Picture("beach.jpg");
+        beach.explore();
+        beach.negate();
+        beach.explore();
+    }
+    public static void testgrayScale()
+    {
+        Picture beach = new Picture("beach.jpg");
+        beach.explore();
+        beach.grayScale();
+        beach.explore();
+    }
+    
+    public static void testMirrorSnowman()
+    {
+        Picture snowman = new Picture("snowman.jpg");
+        snowman.explore();
+        snowman.mirrorSnowman();
+        snowman.explore(); 
+    }
     /** Method to test mirrorVertical */
     public static void testMirrorVertical()
     {
@@ -77,7 +146,6 @@ public class PictureTester
         swan.edgeDetection(10);
         swan.explore();
     }
-
     /** Main method for testing.  Every class can have a main
      * method in Java */
     public static void main(String[] args)
