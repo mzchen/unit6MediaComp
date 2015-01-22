@@ -41,6 +41,7 @@ public class PictureTester
         main.copy(cheadle3,562,0);
         main.copy(cheadle4, 562, 1000);
         main.explore();
+        main.write("C:\\Users\\My Slave\\Desktop\\New folder\\PictureLab\\images\\MyCollage.jpg");
     }
     public static void testZeroBlue()
     {
